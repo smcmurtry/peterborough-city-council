@@ -1,1 +1,6 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+# peterborough-city-council
+
+To deploy:
+`
+npm run deploy
+`

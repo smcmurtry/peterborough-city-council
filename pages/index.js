@@ -2,21 +2,21 @@ import Head from 'next/head';
 import Layout, { siteTitle } from '../components/layout';
 import utilStyles from '../styles/utils.module.css';
 import { getSortedPostsData } from '../lib/posts';
-import { getSortedMinutesData } from '../lib/minutes';
+import { getSortedMeetingData } from '../lib/meetings';
 import Date from '../components/date';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
-  const allMinutesData = getSortedMinutesData();
+  const allMeetingData = getSortedMeetingData();
   return {
     props: {
       allPostsData,
-      allMinutesData
+      allMeetingData
     },
   };
 }
 
-export default function Home({ allPostsData, allMinutesData }) {
+export default function Home({ allPostsData, allMeetingData }) {
   return (
     <Layout home>
       <Head>
@@ -26,15 +26,37 @@ export default function Home({ allPostsData, allMinutesData }) {
         <p>A site to help shed light on Peterborough's City Council.</p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Minutes</h2>
+        <h2 className={utilStyles.headingLg}>Meetings</h2>
         <ul className={utilStyles.list}>
-          {allMinutesData.map(({ id, minutes_fname, datetime_iso, meeting_type }) => (
+          {allMeetingData.map(({ id, agenda_url, cancelled, minutes_filename, datetime_iso, meeting_type, video_url }) => (
             <li className={utilStyles.listItem} key={id}>
-              <a href={`/minutes/${minutes_fname}`}>{meeting_type}</a>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={datetime_iso} />
-              </small>
+              <div>
+                <small className={utilStyles.lightText}>
+                  <Date dateString={datetime_iso} />
+                </small>
+              </div>
+              <span>{meeting_type}</span>
+              {cancelled ? <span> (Cancelled)</span> : null}
+              <div>
+                <small>
+                  {agenda_url != null ?
+                    <a href={agenda_url}>Agenda</a>
+                    :
+                    null
+                  }
+                  {minutes_filename != null && minutes_filename != "" ?
+                    <span> | <a href={`/minutes/${minutes_filename}`}>Minutes</a></span>
+                    :
+                    null
+                  }
+                  {video_url != "" ?
+                    <span> | <a href={video_url}>Video</a></span>
+                    :
+                    null
+                  }
+                </small>
+              </div>
+
             </li>
           ))}
         </ul>
