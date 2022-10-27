@@ -14,7 +14,7 @@ export default function Layout({ children, home }) {
                 <link rel="icon" href="/favicon.ico" />
                 <meta
                     name="description"
-                    content="Learn how to build a personal website using Next.js"
+                    content="Peterborough City Council"
                 />
                 <meta
                     property="og:image"
@@ -40,11 +40,6 @@ export default function Layout({ children, home }) {
                     </>
                 ) : (
                     <>
-                        <h2 className={utilStyles.headingLg}>
-                            <Link href="/">
-                                <a className={utilStyles.colorInherit}>{name}</a>
-                            </Link>
-                        </h2>
                     </>
                 )}
             </header>

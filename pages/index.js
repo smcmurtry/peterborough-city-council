@@ -23,10 +23,11 @@ export default function Home({ allPostsData, allMeetingData }) {
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>A site to help shed light on Peterborough's City Council.</p>
+        <a href="/about">About</a>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Meetings</h2>
+        <p class={utilStyles.lightText}>Displaying {allMeetingData.length}</p>
         <ul className={utilStyles.list}>
           {allMeetingData.map(({ id, agenda_url, cancelled, minutes_filename, datetime_iso, meeting_type, video_url }) => (
             <li className={utilStyles.listItem} key={id}>
