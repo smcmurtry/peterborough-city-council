@@ -95,7 +95,7 @@ export default function FilterMeetings({allMeetingData}) {
   const filteredMeetings = _filteredMeetings.filter(x => x.datetime > selectedStartDate && x.datetime <= selectedEndDate)
     return (
       <div>
-        <div class="mb-4 border-b-2 py-8">
+        <div class="mb-4 border-b-2 pt-8 pb-2">
           <div class="mb-4">
             <span>See</span>
             <select 
@@ -123,6 +123,7 @@ export default function FilterMeetings({allMeetingData}) {
               ))}
             </select>
           </div>
+          <div class="pt-4">{filteredMeetings.length} results</div>
         </div>
         <MeetingList meetingData={filteredMeetings}/>
       </div>
