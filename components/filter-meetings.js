@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 
 import styles from './filter-meeting.module.css';
-import MeetingList from './meeting-list';
+import PaginatedMeetingList from './meeting-list';
 import { getSortedMeetingData } from '../lib/meetings';
 var meetingTypes = require('../lib/meeting_type_dict.json'); //(with path)
 
 var today = new Date()
-var thirtyDaysAgo = new Date(new Date().setDate(new Date().getDate() - 30))
-var sixtyDaysAgo = new Date(new Date().setDate(new Date().getDate() - 60))
 var start2022 = new Date(2022, 0, 0)
 var start2021 = new Date(2021, 0, 0)
 var start2020 = new Date(2020, 0, 0)
@@ -23,11 +21,10 @@ var start2011 = new Date(2011, 0, 0)
 var start2010 = new Date(2010, 0, 0)
 var start2009 = new Date(2009, 0, 0)
 var start2008 = new Date(2008, 0, 0)
-
+var defaultOptionLabel = "2022";
 const timeRangeOptions = [
-  { "label": "the last 30 days", "startDate": thirtyDaysAgo, "endDate": today },
-  { "label": "the last 60 days", "startDate": sixtyDaysAgo, "endDate": today },
-  { "label": "2022", "startDate": start2022, "endDate": today },
+  // { "label": defaultOptionLabel, "startDate": start2008, "endDate": today },
+  { "label": defaultOptionLabel, "startDate": start2022, "endDate": today },
   { "label": "2021", "startDate": start2021, "endDate": start2022 },
   { "label": "2020", "startDate": start2020, "endDate": start2021 },
   { "label": "2019", "startDate": start2019, "endDate": start2020 },
@@ -87,7 +84,7 @@ export default function FilterMeetings({ allMeetingData }) {
   });
   const meetingOptions = [{ "label": "All", "meeting_type": "All" }].concat(_meetingOptions)
   const [selectedMeetingType, setSelectedMeetingType] = useState("All");
-  const [selectedDateRange, setSelectedDateRange] = useState("the last 30 days");
+  const [selectedDateRange, setSelectedDateRange] = useState(defaultOptionLabel);
 
 
   const selectedStartDate = timeRangeOptions.filter(x => x.label == selectedDateRange)[0].startDate
@@ -127,7 +124,7 @@ export default function FilterMeetings({ allMeetingData }) {
         </div>
         <div class="pt-4">{filteredMeetings.length} results</div>
       </div>
-      <MeetingList meetingData={filteredMeetings} />
+      <PaginatedMeetingList meetings={filteredMeetings} meetingsPerPage={10} />
     </div>
 
   )
