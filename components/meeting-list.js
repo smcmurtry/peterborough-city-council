@@ -28,7 +28,7 @@ export default function PaginatedMeetingList({ meetings, meetingsPerPage }) {
   return (
     <>
       <MeetingList meetingData={currentMeetings} />
-      <nav aria-label="Page navigation for Meetings" className="mt-4">
+      <nav aria-label="Page navigation for Meetings" className="mt-6">
         <ReactPaginate
           breakLabel="..."
           breakClassName="page-item"
@@ -40,7 +40,7 @@ export default function PaginatedMeetingList({ meetings, meetingsPerPage }) {
           pageCount={pageCount}
           previousLabel="Previous"
           renderOnZeroPageCount={null}
-          containerClassName="pagination justify-content-center"
+          containerClassName="pagination"
           pageClassName="page-item"
           pageLinkClassName="page-link"
           previousClassName="page-item"
