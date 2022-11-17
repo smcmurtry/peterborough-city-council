@@ -94,8 +94,8 @@ export default function FilterMeetings({ allMeetingData }) {
   const filteredMeetings = _filteredMeetings.filter(x => x.datetime > selectedStartDate && x.datetime <= selectedEndDate)
   return (
     <div>
-      <div class="mb-4 border-b-2 pt-8 pb-2">
-        <div class="mb-4">
+      <div className="mb-4 border-b-2 pt-8 pb-2">
+        <div className="mb-4">
           <span>See</span>
           <select
             className={styles.fancySelect}
@@ -104,7 +104,7 @@ export default function FilterMeetings({ allMeetingData }) {
             onChange={e => setSelectedMeetingType(e.target.value)}
           >
             {meetingOptions.map(({ label }) => (
-              <option value={label}>{label}</option>
+              <option value={label} key={label}>{label}</option>
             ))}
           </select>
           <span>meetings</span>
@@ -118,11 +118,11 @@ export default function FilterMeetings({ allMeetingData }) {
             onChange={e => setSelectedDateRange(e.target.value)}
           >
             {timeRangeOptions.map(({ label }) => (
-              <option value={label}>{label}</option>
+              <option value={label} key={label}>{label}</option>
             ))}
           </select>
         </div>
-        <div class="pt-4">{filteredMeetings.length} results</div>
+        <div className="pt-4">{filteredMeetings.length} results</div>
       </div>
       <PaginatedMeetingList meetings={filteredMeetings} meetingsPerPage={10} />
     </div>
