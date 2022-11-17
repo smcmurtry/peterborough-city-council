@@ -1,15 +1,13 @@
 import Head from 'next/head';
 // import Image from 'next/image';
-import styles from './layout.module.css';
-import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 
-const name = 'Peterborough City Council';
+const name = 'peterborough-city-council.ca';
 export const siteTitle = 'Peterborough City Council';
 
 export default function Layout({ children, home }) {
     return (
-        <div className={styles.container}>
+        <div>
             <Head>
                 <link rel="icon" href="/favicon.ico" />
                 <meta
@@ -24,24 +22,31 @@ export default function Layout({ children, home }) {
                     crossOrigin="anonymous"
                 />
             </Head>
-            <header className={styles.header}>
-                {home ? (
-                    <>
-                        <h1 className={utilStyles.heading2Xl}>{name}</h1>
-                    </>
-                ) : (
-                    <>
-                    </>
-                )}
-            </header>
-            <main>{children}</main>
-            {!home && (
-                <div className={styles.backToHome}>
-                    <Link href="/">
-                        <a>← Back to home</a>
-                    </Link>
+            <header className="border-b-4 py-2">
+                <div className='max-w-screen-md mx-auto'>
+                    <nav>
+                        <div className="flex justify-between">
+                            <a className="  text-2xl font-bold text-black hover:no-underline" href="/">&#127963; {name}</a>
+                            <ul className="flex text-l pt-2">
+                                <li className="mx-2"><a href="/about">About</a></li>
+                                <li className="mx-2"><a href="/">Meetings</a></li>
+                                <li className="mx-2"><a href="/votes">Votes</a></li>
+                            </ul>
+                        </div>
+                    </nav>
                 </div>
-            )}
+            </header>
+
+            <div>
+                <main>{children}</main>
+                {!home && (
+                    <div className="mt-6">
+                        <Link href="/">
+                            <a>← Back to home</a>
+                        </Link>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

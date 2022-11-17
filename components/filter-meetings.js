@@ -94,7 +94,7 @@ export default function FilterMeetings({ allMeetingData }) {
   const filteredMeetings = _filteredMeetings.filter(x => x.datetime > selectedStartDate && x.datetime <= selectedEndDate)
   return (
     <div>
-      <div className="mb-4 border-b-2 pt-8 pb-2">
+      <div className="mb-4 pb-2">
         <div className="mb-4">
           <span>See</span>
           <select
@@ -122,7 +122,6 @@ export default function FilterMeetings({ allMeetingData }) {
             ))}
           </select>
         </div>
-        <div className="pt-4">{filteredMeetings.length} results</div>
       </div>
       <PaginatedMeetingList meetings={filteredMeetings} meetingsPerPage={10} />
     </div>

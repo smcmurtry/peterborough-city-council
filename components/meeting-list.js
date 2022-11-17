@@ -27,6 +27,7 @@ export default function PaginatedMeetingList({ meetings, meetingsPerPage }) {
 
   return (
     <>
+      <div className="mb-4 border-b-2">Showing {meetingOffset + 1} to {endOffset} of {meetings.length} results</div>
       <MeetingList meetingData={currentMeetings} />
       <nav aria-label="Page navigation for Meetings" className="mt-6">
         <ReactPaginate
