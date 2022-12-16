@@ -7,7 +7,6 @@ export default function PaginatedMeetingList({ meetings, meetingsPerPage }) {
   // Here we use meeting offsets; we could also use page offsets
   // following the API or data you're working with.
   const [meetingOffset, setMeetingOffset] = useState(0);
-
   // Simulate fetching meetings from another resources.
   // (This could be meetings from props; or meetings loaded in a local state
   // from an API endpoint with useEffect and useState)
@@ -80,6 +79,7 @@ export function MeetingList({ meetingData }) {
 }
 
 export function MeetingItem({ agenda_url, cancelled, minutes_filename, datetime_iso, meeting_type, video_url }) {
+  const minutes_dir_url = "https://city-council-scraper.s3.ca-central-1.amazonaws.com/minutes"
   return (
     <div>
       <div>
@@ -97,7 +97,7 @@ export function MeetingItem({ agenda_url, cancelled, minutes_filename, datetime_
             null
           }
           {minutes_filename != null && minutes_filename != "" ?
-            <span> | <a href={`/minutes/${minutes_filename}`}>Minutes</a></span>
+            <span> | <a href={`${minutes_dir_url}/${minutes_filename}`}>Minutes</a></span>
             :
             null
           }
