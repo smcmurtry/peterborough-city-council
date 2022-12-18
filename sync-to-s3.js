@@ -18,9 +18,4 @@ execSync(`export AWS_SECRET_ACCESS_KEY=${process.env.AWS_SECRET_ACCESS_KEY}`)
 execSync(`export AWS_DEFAULT_REGION=ca-central-1`)
 
 // sync files and dirs individually, so we don't overwrite the pdf directory
-execSync(`aws s3 sync webDist/_next s3://peterborough-city-council.ca/_next`)
-execSync(`aws s3 sync webDist/posts s3://peterborough-city-council.ca/posts`)
-execSync(`aws s3 cp webDist/404.html s3://peterborough-city-council.ca/`)
-execSync(`aws s3 cp webDist/about.html s3://peterborough-city-council.ca/`)
-execSync(`aws s3 cp webDist/favicon.ico s3://peterborough-city-council.ca/`)
-execSync(`aws s3 cp webDist/index.html s3://peterborough-city-council.ca/`)
+execSync(`aws s3 sync webDist/ s3://peterborough-city-council.ca/`)
