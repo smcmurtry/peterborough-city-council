@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import fetch from 'node-fetch';
 
 import styles from './filter-meeting.module.css';
 import PaginatedMeetingList from './meeting-list';
 import { getSortedMeetingData } from '../lib/meetings';
 var meetingTypes = require('../lib/meeting_type_dict.json'); //(with path)
+const all_meeting_data_url = "https://city-council-scraper.s3.ca-central-1.amazonaws.com/all_meeting_data.json"
 
 var today = new Date()
 var start2022 = new Date(2022, 0, 0)
@@ -41,22 +43,24 @@ const timeRangeOptions = [
   { "label": "2008", "startDate": start2008, "endDate": start2009 },
 ]
 
-export async function getStaticProps() {
-  const allMeetingData = getSortedMeetingData();
-  return {
-    props: {
-      allMeetingData
-    },
-  };
-}
-
 var meedingDict = {}
 meetingTypes.forEach(x => {
   meedingDict[x["meeting_type"]] = x["label"]
 });
 
-export default function FilterMeetings({ allMeetingData }) {
-  const meetingData = getSortedMeetingData();
+export default function FilterMeetings() {
+  const [meetingData, setMeetingData] = useState([]);
+
+  useEffect(() => {
+    fetch(all_meeting_data_url)
+      .then(response => {
+        return response.json()
+      })
+      .then(data => {
+        setMeetingData(getSortedMeetingData(data))
+      });
+  }, [])
+
   const knownMeetingTypes = meetingTypes.map(x => x.meeting_type);
   meetingData.forEach(x => {
     if (knownMeetingTypes.indexOf(x["meeting_type"]) > -1) {
