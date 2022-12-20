@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import utilStyles from '../styles/utils.module.css';
-import Date from './date';
+import {Date} from './date';
 import ReactPaginate from 'react-paginate';
 import Link from "next/link";
 
@@ -79,8 +79,9 @@ export function MeetingList({ meetingData }) {
 
 export function MeetingItem({ id, datetime_iso, meeting_type }) {
   // const minutes_dir_url = "https://city-council-scraper.s3.ca-central-1.amazonaws.com/minutes"
+  const queryId = id == "blah" ? "unknown" : id
   return (
-    <Link href={{ pathname: '/meeting', query: { id: id }}}>
+    <Link href={{ pathname: '/meeting', query: { id: queryId }}}>
       <a>
         <span>
           <small>
