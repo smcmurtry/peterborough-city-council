@@ -78,10 +78,9 @@ export function MeetingList({ meetingData }) {
 }
 
 export function MeetingItem({ id, datetime_iso, meeting_type }) {
-  // const minutes_dir_url = "https://city-council-scraper.s3.ca-central-1.amazonaws.com/minutes"
   const queryId = id == "blah" ? "unknown" : id
   return (
-    <Link href={{ pathname: '/meeting', query: { id: queryId }}}>
+    <Link href={{ pathname: `/meetings/${queryId}.html` }}>
       <a>
         <span>
           <small>

@@ -1,9 +1,17 @@
 import Head from 'next/head';
-// import Image from 'next/image';
 import Link from 'next/link';
 
 const name = 'peterborough-city-council.ca';
 export const siteTitle = 'Peterborough City Council';
+
+export function Container(props) {
+    return (
+        <div className="max-w-screen-md mx-auto mb-6 text-left">
+            {props.children}
+        </div>
+    );
+
+}
 
 export default function Layout({ children, home }) {
     return (
@@ -28,9 +36,9 @@ export default function Layout({ children, home }) {
                         <div className="flex justify-between">
                             <a className="  text-2xl font-bold text-black hover:no-underline" href="/">&#127963; {name}</a>
                             <ul className="flex text-l pt-2">
-                                <li className="mx-2"><a href="/about">About</a></li>
+                                <li className="mx-2"><a href="/about.html">About</a></li>
                                 <li className="mx-2"><a href="/">Meetings</a></li>
-                                <li className="mx-2"><a href="/votes">Votes</a></li>
+                                <li className="mx-2"><a href="/votes.html">Votes</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -41,9 +49,11 @@ export default function Layout({ children, home }) {
                 <main>{children}</main>
                 {!home && (
                     <div className="mt-6">
+                        <Container>
                         <Link href="/">
                             <a>← Back to home</a>
                         </Link>
+                        </Container>
                     </div>
                 )}
             </div>
