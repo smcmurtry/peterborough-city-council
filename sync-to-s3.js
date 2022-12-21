@@ -13,9 +13,9 @@ const path = require("path");
 
 
 // Execute the command...
-execSync(`export AWS_ACCESS_KEY_ID=${process.env.AWS_ACCESS_KEY_ID}`)
-execSync(`export AWS_SECRET_ACCESS_KEY=${process.env.AWS_SECRET_ACCESS_KEY}`)
-execSync(`export AWS_DEFAULT_REGION=ca-central-1`)
+// execSync(`export AWS_ACCESS_KEY_ID=${process.env.AWS_ACCESS_KEY_ID}`)
+// execSync(`export AWS_SECRET_ACCESS_KEY=${process.env.AWS_SECRET_ACCESS_KEY}`)
+// execSync(`export AWS_DEFAULT_REGION=ca-central-1`)
 
 // sync files and dirs individually, so we don't overwrite the pdf directory
 execSync(`aws s3 sync webDist/ s3://peterborough-city-council.ca/`)
