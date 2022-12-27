@@ -6,7 +6,7 @@ export const siteTitle = 'Peterborough City Council';
 
 export function Container(props) {
     return (
-        <div className="max-w-screen-md mx-auto mb-6 text-left">
+        <div className="max-w-screen-md mx-auto text-left">
             {props.children}
         </div>
     );
@@ -46,16 +46,16 @@ export default function Layout({ children, home }) {
             </header>
 
             <div>
-                <main>{children}</main>
-                {!home && (
+            {!home && (
                     <div className="mt-6">
                         <Container>
-                        <Link href="/">
-                            <a>← Back to home</a>
-                        </Link>
+                            <Link href="/">
+                                <a>← Back</a>
+                            </Link>
                         </Container>
                     </div>
                 )}
+                <main>{children}</main>
             </div>
         </div>
     );
