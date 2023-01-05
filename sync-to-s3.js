@@ -17,5 +17,5 @@ const path = require("path");
 // execSync(`export AWS_SECRET_ACCESS_KEY=${process.env.AWS_SECRET_ACCESS_KEY}`)
 // execSync(`export AWS_DEFAULT_REGION=ca-central-1`)
 
-// sync files and dirs individually, so we don't overwrite the pdf directory
+execSync(`aws s3 rm s3://peterborough-city-council.ca/ --recursive`)
 execSync(`aws s3 sync webDist/ s3://peterborough-city-council.ca/`)
