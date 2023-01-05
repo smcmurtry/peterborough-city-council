@@ -10,21 +10,23 @@ const minutesDirUrl = "https://city-council-scraper.s3.ca-central-1.amazonaws.co
 
 export async function getStaticProps({ params }) {
     const meetingId = params.id;
-    const meetingData = await fetch(allMeetingDataUrl)
-      .then(response => response.json())
-      .then(meetingList => meetingList.filter(meeting => meeting.id == meetingId)[0])
+    const resp1 = await fetch(allMeetingDataUrl)
+    const meetingList = await resp1.json()
+    const meetingData = meetingList.filter(meeting => meeting.id == meetingId)[0]
     
-      var voteData = []
-      try {
-        const _meetingId = meetingData.minutes_filename.slice(0, -4)
-        console.log("_meetingId", _meetingId)
-        voteData = await fetch(allVoteDataUrl)
-          .then(response => response.json())
-          .then(voteDict => voteDict[_meetingId])
-      } catch {
-        console.log(`no vote data for meetingId ${meetingId}`)
-      }
-
+    if (meetingData.minutes_filename == null) {
+        return {
+            props: {
+                meetingData,
+                voteData: null,
+            },
+        };
+    }
+    const _meetingId = meetingData.minutes_filename.slice(0, -4)
+    const response = await fetch(allVoteDataUrl)
+    const allVoteData = await response.json()
+    const meetingInDict = Object.keys(allVoteData).indexOf(_meetingId) > -1
+    const voteData = meetingInDict ? allVoteData[_meetingId] : null
     // console.log("voteData", voteData)
     return {
         props: {
@@ -118,7 +120,7 @@ export function MeetingTopMatter({ meetingData }) {
 
 
   export function Votes({ voteData }) {
-    if (voteData === undefined) {
+    if (voteData === undefined || voteData == null) {
         return null;
     }
 
