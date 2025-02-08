@@ -1,0 +1,47 @@
+[
+  {
+    "title": "Approval of Budget",
+    "date": "2025-01-15",
+    "number_for": 8,
+    "number_against": 3,
+    "carried": true,
+    "id": "vote_001",
+    "meeting_id": "meeting_001"
+  },
+  {
+    "title": "New Park Development",
+    "date": "2025-02-10",
+    "number_for": 10,
+    "number_against": 1,
+    "carried": true,
+    "id": "vote_002",
+    "meeting_id": "meeting_002"
+  },
+  {
+    "title": "Increase in Property Taxes",
+    "date": "2025-03-05",
+    "number_for": 5,
+    "number_against": 6,
+    "carried": false,
+    "id": "vote_003",
+    "meeting_id": "meeting_003"
+  },
+  {
+    "title": "Renovation of City Hall",
+    "date": "2025-04-20",
+    "number_for": 7,
+    "number_against": 4,
+    "carried": true,
+    "id": "vote_004",
+    "meeting_id": "meeting_004"
+  },
+  {
+    "title": "Public Transportation Expansion",
+    "date": "2025-05-15",
+    "number_for": 9,
+    "number_against": 2,
+    "carried": true,
+    "id": "vote_005",
+    "meeting_id": "meeting_005"
+  }
+]

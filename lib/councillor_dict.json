@@ -1,0 +1,13 @@
+[
+  {"id": "jeff_leal", "name": "Jeff Leal", "title": "Mayor", "Ward": "NA"},
+  {"id": "kevin_duguay", "name": "Kevin Duguay", "title": "Councillor", "Ward": "Otonabee"},
+  {"id": "lesley_parnell", "name": "Lesley Parnell", "title": "Councillor", "Ward": "Otonabee"},
+  {"id": "matt_crowley", "name": "Matt Crowley", "title": "Councillor", "Ward": "Monaghan"},
+  {"id": "don_vassiliadis", "name": "Don Vassiliadis", "title": "Councillor", "Ward": "Monaghan"},
+  {"id": "alex_bierk", "name": "Alex Bierk", "title": "Councillor", "Ward": "Town"},
+  {"id": "joy_lachica", "name": "Joy Lachica", "title": "Councillor", "Ward": "Town"},
+  {"id": "gary_baldwin", "name": "Gary Baldwin", "title": "Councillor", "Ward": "Ashburnham"},
+  {"id": "keith_riel", "name": "Keith Riel", "title": "Councillor", "Ward": "Ashburnham"},
+  {"id": "andrew_beamer", "name": "Andrew Beamer", "title": "Councillor", "Ward": "Northcrest"},
+  {"id": "dave_haacke", "name": "Dave Haacke", "title": "Councillor", "Ward": "Northcrest"}
+]

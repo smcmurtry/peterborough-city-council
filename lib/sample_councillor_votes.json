@@ -1,0 +1,77 @@
+[
+  {
+    "vote_id": "vote_001",
+    "councillor_id": "jeff_leal",
+    "in_favour": true
+  },
+  {
+    "vote_id": "vote_001",
+    "councillor_id": "kevin_duguay",
+    "in_favour": true
+  },
+  {
+    "vote_id": "vote_001",
+    "councillor_id": "lesley_parnell",
+    "in_favour": false
+  },
+  {
+    "vote_id": "vote_002",
+    "councillor_id": "matt_crowley",
+    "in_favour": true
+  },
+  {
+    "vote_id": "vote_002",
+    "councillor_id": "don_vassiliadis",
+    "in_favour": true
+  },
+  {
+    "vote_id": "vote_002",
+    "councillor_id": "alex_bierk",
+    "in_favour": false
+  },
+  {
+    "vote_id": "vote_003",
+    "councillor_id": "joy_lachica",
+    "in_favour": false
+  },
+  {
+    "vote_id": "vote_003",
+    "councillor_id": "gary_baldwin",
+    "in_favour": true
+  },
+  {
+    "vote_id": "vote_003",
+    "councillor_id": "keith_riel",
+    "in_favour": false
+  },
+  {
+    "vote_id": "vote_004",
+    "councillor_id": "andrew_beamer",
+    "in_favour": true
+  },
+  {
+    "vote_id": "vote_004",
+    "councillor_id": "dave_haacke",
+    "in_favour": true
+  },
+  {
+    "vote_id": "vote_004",
+    "councillor_id": "jeff_leal",
+    "in_favour": false
+  },
+  {
+    "vote_id": "vote_005",
+    "councillor_id": "kevin_duguay",
+    "in_favour": true
+  },
+  {
+    "vote_id": "vote_005",
+    "councillor_id": "lesley_parnell",
+    "in_favour": true
+  },
+  {
+    "vote_id": "vote_005",
+    "councillor_id": "matt_crowley",
+    "in_favour": false
+  }
+]

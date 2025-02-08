@@ -36,9 +36,10 @@ export default function Layout({ children, home }) {
                         <div className="flex justify-between">
                             <a className="  text-2xl font-bold text-black hover:no-underline" href="/">&#127963; {name}</a>
                             <ul className="flex text-l pt-2">
-                                <li className="mx-2"><a href="/about.html">About</a></li>
+                                <li className="mx-2"><a href="/about">About</a></li>
                                 <li className="mx-2"><a href="/">Meetings</a></li>
-                                <li className="mx-2"><a href="/votes.html">Votes</a></li>
+                                {/* <li className="mx-2"><a href="/votes">Votes</a></li> */}
+                                <li className="mx-2"><a href="/councillors">Councillors</a></li>
                             </ul>
                         </div>
                     </nav>

@@ -74,9 +74,9 @@ export function KnownMeeting({meetingData, voteData}) {
                 <section className="mb-4">
                     <MeetingTopMatter meetingData={meetingData} />
                 </section>
-                <section className="">
+                {/* <section className="">
                     <Votes voteData={voteData} />
-                </section>
+                </section> */}
             </div>
         </Container>
     )
@@ -130,8 +130,8 @@ export function MeetingTopMatter({ meetingData }) {
           <ul>
           {voteData.map((vote) => (
               <li className='flex' key={vote.title}>
-                <span className='flex-none'><VoteResult vote={vote} /></span>
-                <span className='flex-1 overflow-hidden whitespace-nowrap text-ellipsis'>{vote.title}</span>
+                <span className='flex-none w-40'><VoteResult vote={vote} /></span>
+                <a href="/votes/1" className='flex-1 overflow-hidden whitespace-nowrap text-ellipsis'>{vote.title}</a>
             </li>
             ))}
           <li></li>
