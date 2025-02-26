@@ -5,7 +5,7 @@ import styles from './filter-meeting.module.css';
 import PaginatedMeetingList from './meeting-list';
 import { getSortedMeetingData } from '../lib/meetings';
 var meetingTypes = require('../lib/meeting_type_dict.json'); //(with path)
-const all_meeting_data_url = "https://city-council-scraper.s3.ca-central-1.amazonaws.com/all_meeting_data.json"
+const apiEndpoint = "http://localhost:5099/meetings"; // Update with your actual API endpoint
 
 var today = new Date()
 var start2022 = new Date(2022, 0, 0)
@@ -52,12 +52,21 @@ export default function FilterMeetings() {
   const [meetingData, setMeetingData] = useState([]);
 
   useEffect(() => {
-    fetch(all_meeting_data_url)
+    fetch(apiEndpoint, { mode: 'no-cors' })
       .then(response => {
-        return response.json()
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        data = response.json()
+        console.log("response", response)
+        console.log("data", data)
+        return data;
       })
       .then(data => {
-        setMeetingData(getSortedMeetingData(data))
+        setMeetingData(getSortedMeetingData(data));
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
       });
   }, [])
 

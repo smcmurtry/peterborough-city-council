@@ -1,150 +1,76 @@
-import React from 'react';
-import Head from 'next/head';
-import fetch from 'node-fetch';
+import { useRouter } from 'next/router';
+import Layout, { Container } from '../../components/layout';
+import { useEffect, useState } from 'react';
 import {FormatDatetime} from '../../components/date';
-import Layout, { siteTitle, Container } from '../../components/layout';
 import utilStyles from '../../styles/utils.module.css';
-const allMeetingDataUrl = "https://city-council-scraper.s3.ca-central-1.amazonaws.com/all_meeting_data.json"
-const allVoteDataUrl = "https://city-council-scraper.s3.ca-central-1.amazonaws.com/all_vote_data.json"
-const minutesDirUrl = "https://city-council-scraper.s3.ca-central-1.amazonaws.com/minutes"
 
-export async function getStaticProps({ params }) {
-    const meetingId = params.id;
-    const resp1 = await fetch(allMeetingDataUrl)
-    const meetingList = await resp1.json()
-    const meetingData = meetingList.filter(meeting => meeting.id == meetingId)[0]
-    
-    if (meetingData.minutes_filename == null) {
-        return {
-            props: {
-                meetingData,
-                voteData: null,
-            },
-        };
-    }
-    const _meetingId = meetingData.minutes_filename.slice(0, -4)
-    const response = await fetch(allVoteDataUrl)
-    const allVoteData = await response.json()
-    const meetingInDict = Object.keys(allVoteData).indexOf(_meetingId) > -1
-    const voteData = meetingInDict ? allVoteData[_meetingId] : null
-    // console.log("voteData", voteData)
-    return {
-        props: {
-            meetingData,
-            voteData,
-        },
-    };
-}
+export default function Meeting() {
+    const router = useRouter();
+    const { id } = router.query;
+    const [meeting, setMeeting] = useState(null);
 
-export async function getStaticPaths() {
-    const resp = await fetch(allMeetingDataUrl)
-    const data = await resp.json();
-    const paths = data.map(x => {
-        try {
-            return {params: {id: x.id}};
-        } catch {
-            return
+    useEffect(() => {
+        if (id) {
+            fetch(`http://localhost:5099/meetings/${id}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    setMeeting(data);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
         }
-    });
-    return {
-        paths,
-        fallback: false,
-    };
-}
+    }, [id]);
 
-export default function Meeting({meetingData, voteData}) {
-    return (
-    <Layout meeting>
-        <Head>
-            <title>{siteTitle}</title>
-        </Head>
-        <KnownMeeting meetingData={meetingData} voteData={voteData} />
-    </Layout>
-  );
-}
-
-export function KnownMeeting({meetingData, voteData}) {
-    const title = (meetingData && meetingData.meeting_type) ? meetingData.meeting_type : "";
-    return (
-        <Container>
-            <div className="py-4 text-black">
-                <h1 className='text-4xl'>{title}</h1>
-            </div>
-            <div className="mb-6">
-                <section className="mb-4">
-                    <MeetingTopMatter meetingData={meetingData} />
-                </section>
-                {/* <section className="">
-                    <Votes voteData={voteData} />
-                </section> */}
-            </div>
-        </Container>
-    )
-}
-
-
-export function MeetingTopMatter({ meetingData }) {
-    if (meetingData === undefined) {
-        return null;
-    }
-    return (
-      <div>
-        <div>
-            <FormatDatetime dateString={meetingData.datetime_iso} />
-        </div>
-        <div>{meetingData.location}</div>
-        <div className={utilStyles.lightText}>{meetingData.cancelled ? "Meeting cancelled" : "Meeting occurred as planned"}</div>
-        <div className="mt-4">Links</div>
-        <div>
-            {meetingData.agenda_url != null ?
-              <a href={meetingData.agenda_url}>Agenda</a>
-              :
-              <span className={utilStyles.lightText}>Agenda unavailable</span>
-            }
-            <span> | </span>
-            {meetingData.minutes_filename != null && meetingData.minutes_filename != "" ?
-              <a href={`${minutesDirUrl}/${meetingData.minutes_filename}`}>Minutes</a>
-              :
-              <span className={utilStyles.lightText}>Minutes unavailable</span>
-            }
-            <span> | </span>
-            {meetingData.video_url != "" ?
-              <a href={meetingData.video_url}>Video</a>
-              :
-              <span className={utilStyles.lightText}>Video unavailable</span>
-            }
-        </div>
-      </div>
-    )
-  }
-
-
-  export function Votes({ voteData }) {
-    if (voteData === undefined || voteData == null) {
-        return null;
+    if (!meeting) {
+        return <Layout><p>Loading...</p></Layout>;
     }
 
     return (
-        <div>
-          <h2 className=''>Votes</h2>
-          <ul>
-          {voteData.map((vote) => (
-              <li className='flex' key={vote.title}>
-                <span className='flex-none w-40'><VoteResult vote={vote} /></span>
-                <a href="/votes/1" className='flex-1 overflow-hidden whitespace-nowrap text-ellipsis'>{vote.title}</a>
-            </li>
-            ))}
-          <li></li>
-          </ul>
-        </div>
-)} 
-
-function VoteResult({vote}) {
-    const forCount = vote["for"].length
-    const againstCount = vote["against"].length
-    return (
-        <span className='pr-2'>
-            {vote["carried"] ? "✅ Carried" : "❌ Failed"} ({forCount} to {againstCount})
-        </span>
-    )
+        <Layout>
+            <Container>
+                <div className="py-4 text-black">
+                    <h1 className='text-4xl'>{meeting.name}</h1>
+                </div>
+                <div className="mb-6">
+                    <section className="mb-4">
+                        <div>
+                            <div>
+                                <FormatDatetime dateString={meeting.date} />
+                            </div>
+                            <div>{meeting.location}</div>
+                            <div className={utilStyles.lightText}>
+                                {meeting.cancelled ? "Meeting cancelled" : "Meeting occurred as planned"}
+                            </div>
+                            <div className="mt-4">Links</div>
+                            <div>
+                                {meeting.agenda_url ?
+                                    <a href={meeting.agenda_url}>Agenda</a>
+                                    :
+                                    <span className={utilStyles.lightText}>Agenda unavailable</span>
+                                }
+                                <span> | </span>
+                                {meeting.minutes_fname ?
+                                    <a href={meeting.minutes_fname}>Minutes</a>
+                                    :
+                                    <span className={utilStyles.lightText}>Minutes unavailable</span>
+                                }
+                                <span> | </span>
+                                {meeting.video_url ?
+                                    <a href={meeting.video_url}>Video</a>
+                                    :
+                                    <span className={utilStyles.lightText}>Video unavailable</span>
+                                }
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </Container>
+        </Layout>
+    );
 }

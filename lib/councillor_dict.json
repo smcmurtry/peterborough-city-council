@@ -1,13 +1,17 @@
 [
-  {"id": "jeff_leal", "name": "Jeff Leal", "title": "Mayor", "Ward": "NA"},
-  {"id": "kevin_duguay", "name": "Kevin Duguay", "title": "Councillor", "Ward": "Otonabee"},
-  {"id": "lesley_parnell", "name": "Lesley Parnell", "title": "Councillor", "Ward": "Otonabee"},
-  {"id": "matt_crowley", "name": "Matt Crowley", "title": "Councillor", "Ward": "Monaghan"},
-  {"id": "don_vassiliadis", "name": "Don Vassiliadis", "title": "Councillor", "Ward": "Monaghan"},
-  {"id": "alex_bierk", "name": "Alex Bierk", "title": "Councillor", "Ward": "Town"},
-  {"id": "joy_lachica", "name": "Joy Lachica", "title": "Councillor", "Ward": "Town"},
-  {"id": "gary_baldwin", "name": "Gary Baldwin", "title": "Councillor", "Ward": "Ashburnham"},
-  {"id": "keith_riel", "name": "Keith Riel", "title": "Councillor", "Ward": "Ashburnham"},
-  {"id": "andrew_beamer", "name": "Andrew Beamer", "title": "Councillor", "Ward": "Northcrest"},
-  {"id": "dave_haacke", "name": "Dave Haacke", "title": "Councillor", "Ward": "Northcrest"}
+  {"id": "therrien", "name": "Diane Therrien", "title": "Mayor", "start_date": "2018-10-22", "end_date": "2022-10-24"},
+  {"id": "parnell", "name": "Lesley Parnell", "title": "Councillor", "ward": "Otonabee", "start_date": "2010-10-25"},
+  {"id": "zippel", "name": "Kim Zippel", "title": "Councillor", "ward": "Otonabee", "start_date": "2018-10-22", "end_date": "2022-10-24"},
+  {"id": "vassiliadis", "name": "Don Vassiliadis", "title": "Councillor", "ward": "Monaghan", "start_date": "2014-10-27"},
+  {"id": "clarke", "name": "Henry Clarke", "title": "Councillor", "ward": "Monaghan", "start_date": "1998-10-01", "end_date": "2022-10-24"},
+  {"id": "pappas", "name": "Dean Pappas", "title": "Councillor", "ward": "Town", "start_date": "2006-11-13", "end_date": "2022-10-24"}, 
+  {"id": "baldwin", "name": "Gary Baldwin", "title": "Councillor", "ward": "Ashburnham", "start_date": "2018-10-22"},
+  {"id": "riel", "name": "Keith Riel", "title": "Councillor", "ward": "Ashburnham", "start_date": "2010-10-25"},
+  {"id": "leal", "name": "Jeff Leal", "title": "Mayor", "start_date": "2022-10-24"},
+  {"id": "duguay", "name": "Kevin Duguay", "title": "Councillor", "ward": "Otonabee", "start_date": "2022-10-24"},
+  {"id": "crowley", "name": "Matt Crowley", "title": "Councillor", "ward": "Monaghan", "start_date": "2022-10-24"},
+  {"id": "bierk", "name": "Alex Bierk", "title": "Councillor", "ward": "Town", "start_date": "2022-10-24"},
+  {"id": "lachica", "name": "Joy Lachica", "title": "Councillor", "ward": "Town", "start_date": "2022-10-24"},
+  {"id": "beamer", "name": "Andrew Beamer", "title": "Councillor", "ward": "Northcrest", "start_date": "2022-10-24"},
+  {"id": "haacke", "name": "Dave Haacke", "title": "Councillor", "ward": "Northcrest", "start_date": "2022-10-24"}
 ]

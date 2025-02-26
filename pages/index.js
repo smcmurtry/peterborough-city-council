@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Layout, { siteTitle, Container } from '../components/layout';
 import FilterMeetings from '../components/filter-meetings';
+import { CouncillorsList } from './councillors';
 import utilStyles from '../styles/utils.module.css';
 
 export default function Home() {
@@ -16,14 +17,15 @@ export default function Home() {
         </div>
       </Container>
       <Container>
-      <div className="mb-6">
-      {/* <div className="mb-4">"An unofficial website to track what's happening in Peterborough's City Council"</div> */}
-      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <FilterMeetings />
-      </section>
-      </div>
+        <div className="mb-6">
+          <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+            <FilterMeetings />
+          </section>
+        </div>
       </Container>
-
+      <Container>
+        <CouncillorsList />
+      </Container>
     </Layout>
   );
 }
