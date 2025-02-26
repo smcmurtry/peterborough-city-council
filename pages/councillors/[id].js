@@ -27,13 +27,29 @@ export default function Councillor() {
         }
     }, [id]);
 
+    useEffect(() => {
+        if (id) {
+            fetch(`http://localhost:5099/councillor_votes/councillor/${id}`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.json();
+                })
+                .then(data => {
+                    setVotes(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching votes:', error);
+                });
+        }
+    }, [id]);
+
     if (!councillor) {
         return <Layout><p>Loading...</p></Layout>;
     }
 
     // Sort votes by date in descending order
     const sortedVotes = votes.sort((a, b) => {
-        return new Date(b.date) - new Date(a.date);
+        return new Date(b.vote.date) - new Date(a.vote.date);
     });
 
     const formatDate = (dateStr) => {
@@ -55,14 +71,17 @@ export default function Councillor() {
 
                 <h2 className="text-2xl font-bold mt-6 mb-4">Voting Record</h2>
                 <ul className="space-y-2">
-                    {sortedVotes.map(vote => (
-                        <li key={vote.id} className="text-lg">
-                            <span className="text-gray-600">{formatDate(vote.date)}</span> - 
-                            <Link href={`/votes/${vote.id}`}>
-                                <a className="font-bold">{vote.title}</a>
-                            </Link> - 
-                            <span className={vote.in_favour ? "text-green-500" : "text-red-500"}>
-                                {vote.in_favour ? " In Favour" : " Against"}
+                    {sortedVotes.map(voteRecord => (
+                        <li key={voteRecord.id} className="text-lg">
+                            <Link href={`/votes/${voteRecord.vote.id}`}>
+                                <a className="font-bold">{voteRecord.vote.title}</a>
+                            </Link>
+                            <span className={voteRecord.vote_cast === "for" ? "text-green-500" : "text-red-500"}>
+                                {voteRecord.vote_cast === "for" ? " In Favour" : " Against"}
+                            </span>
+                            <span className="text-gray-600 text-sm ml-2">
+                                ({voteRecord.vote.votes_for} to {voteRecord.vote.votes_against})
+                                {voteRecord.vote.carried ? " ✓ Carried" : " ✗ Failed"}
                             </span>
                         </li>
                     ))}
