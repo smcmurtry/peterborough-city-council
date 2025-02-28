@@ -37,7 +37,7 @@ export default function Layout({ children, home }) {
                             <a className="  text-2xl font-bold text-black hover:no-underline" href="/">&#127963; {name}</a>
                             <ul className="flex text-l pt-2">
                                 <li className="mx-2"><a href="/about">About</a></li>
-                                <li className="mx-2"><a href="/">Meetings</a></li>
+                                <li className="mx-2"><a href="/meetings">Meetings</a></li>
                                 {/* <li className="mx-2"><a href="/votes">Votes</a></li> */}
                                 <li className="mx-2"><a href="/councillors">Councillors</a></li>
                             </ul>
@@ -50,9 +50,10 @@ export default function Layout({ children, home }) {
             {!home && (
                     <div className="mt-6">
                         <Container>
-                            <Link href="/">
+                            {/* todo: make the back button work better */}
+                            {/* <Link href="/">
                                 <a>← Back</a>
-                            </Link>
+                            </Link> */}
                         </Container>
                     </div>
                 )}

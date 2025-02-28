@@ -13,14 +13,7 @@ export default function Home() {
       <Container>
         <div className="py-4 text-black">
           <div className="mb-2 text-l ">"An unofficial website to track what's happening in Peterborough's City Council"</div>
-          <h1 className='text-4xl '>City Council Meetings</h1>
-        </div>
-      </Container>
-      <Container>
-        <div className="mb-6">
-          <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-            <FilterMeetings />
-          </section>
+          <h1 className='text-4xl '>City Council</h1>
         </div>
       </Container>
       <Container>

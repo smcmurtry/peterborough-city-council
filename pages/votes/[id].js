@@ -7,7 +7,6 @@ export default function Vote() {
     const router = useRouter();
     const { id } = router.query;
     const [vote, setVote] = useState(null);
-    const [meeting, setMeeting] = useState(null);
 
     useEffect(() => {
         if (id) {
@@ -18,15 +17,6 @@ export default function Vote() {
                 })
                 .then(data => {
                     setVote(data);
-                    // Fetch meeting data once we have the vote data
-                    return fetch(`http://localhost:5099/meetings/${data.meeting_id}`);
-                })
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then(meetingData => {
-                    setMeeting(meetingData);
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
@@ -34,7 +24,16 @@ export default function Vote() {
         }
     }, [id]);
 
-    if (!vote || !meeting) {
+    const groupCouncillorsByVote = (councillorVotes) => {
+        return councillorVotes.reduce((acc, cv) => {
+            const key = cv.vote_cast;
+            if (!acc[key]) acc[key] = [];
+            acc[key].push(cv.councillor);
+            return acc;
+        }, {});
+    };
+
+    if (!vote) {
         return <Layout><p>Loading...</p></Layout>;
     }
 
@@ -47,36 +46,70 @@ export default function Vote() {
         });
     };
 
+    const groupedVotes = groupCouncillorsByVote(vote.councillor_votes);
+
     return (
         <Layout>
             <div className="max-w-screen-md mx-auto text-left pb-12">
-                <h1 className="text-3xl font-bold mb-4">{vote.title}</h1>
-                
-                <div className="mb-8 p-4 bg-gray-50 rounded-lg">
-                    <h2 className="text-xl font-semibold mb-2">Meeting Details</h2>
-                    <p><strong>Name:</strong> {meeting.name}</p>
-                    <p><strong>Date:</strong> {formatDate(meeting.date)}</p>
-                    <p><strong>Location:</strong> {meeting.location}</p>
-                    {meeting.minutes_fname && 
-                        <p><strong>Minutes:</strong> <a href={meeting.minutes_fname} className="text-blue-500 hover:underline">View Minutes</a></p>
-                    }
-                </div>
+                <h1 className="text-xl font-semibold mb-6 leading-normal text-gray-800">{vote.title}</h1>
 
-                <div className="mb-4 mt-6">
+                <div className="mb-8">
                     <div className="text-lg">
-                        <span className={vote.carried ? "text-green-500 font-bold" : "text-red-500 font-bold"}>
-                            {vote.carried ? "✓ Carried" : "✗ Failed"}
+                        <span className={vote.carried ? "text-green-600 font-semibold" : "text-red-600 font-semibold"}>
+                            {vote.carried ? "✓ Motion Carried" : "✗ Motion Failed"}
                         </span>
-                        <span className="text-gray-600 ml-2">
-                            {vote.votes_for} in favour, {vote.votes_against} against
+                        <span className="text-gray-600 ml-2 text-sm">
+                            ({vote.votes_for} in favour, {vote.votes_against} against)
                         </span>
                     </div>
                 </div>
 
-                <div className="mt-8">
-                    <Link href={`/meetings/${vote.meeting_id}`}>
-                        <a className="text-blue-500 hover:underline">← Back to Meeting</a>
+                <div className="mb-12">
+                    <div className="grid grid-cols-2 gap-8">
+                        <div>
+                            <h3 className="text-sm font-semibold uppercase tracking-wide text-green-700 mb-3">In Favour</h3>
+                            <ul className="space-y-2">
+                                {groupedVotes.for?.map(councillor => (
+                                    <li key={councillor.id}>
+                                        <Link href={`/councillors/${councillor.id}`}>
+                                            <a className="text-sm hover:underline">
+                                                {councillor.title} {councillor.name}
+                                            </a>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        {groupedVotes.against && groupedVotes.against.length > 0 && (
+                            <div>
+                                <h3 className="text-sm font-semibold uppercase tracking-wide text-red-700 mb-3">Against</h3>
+                                <ul className="space-y-2">
+                                    {groupedVotes.against.map(councillor => (
+                                        <li key={councillor.id}>
+                                            <Link href={`/councillors/${councillor.id}`}>
+                                                <a className="text-sm hover:underline">
+                                                    {councillor.title} {councillor.name}
+                                                </a>
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <div className="border-t pt-8">
+                    <h2 className="text-sm font-semibold uppercase tracking-wide text-gray-600 mb-3">Meeting Details</h2>
+                    <Link href={`/meetings/${vote.meeting.id}`}>
+                        <a className="text-blue-600 hover:underline block mb-2">{vote.meeting.name}</a>
                     </Link>
+                    <p className="text-sm text-gray-600">{formatDate(vote.meeting.date)} • {vote.meeting.location}</p>
+                    {vote.meeting.minutes_fname && 
+                        <p className="mt-2">
+                            <a href={vote.meeting.minutes_fname} className="text-sm text-blue-600 hover:underline">View Minutes</a>
+                        </p>
+                    }
                 </div>
             </div>
         </Layout>

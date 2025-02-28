@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import Layout, { siteTitle, Container } from '../../components/layout';
 import utilStyles from '../../styles/utils.module.css';
+import FilterMeetings from '../../components/filter-meetings';
 
 function MeetingList() {
     const [meetings, setMeetings] = useState([]);
@@ -50,6 +51,11 @@ export default function MeetingsPage() {
             <Head>
                 <title>{siteTitle} - Meetings</title>
             </Head>
+        {/* <div className="m-6">
+          <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+            <FilterMeetings />
+          </section>
+          </div> */}
             <Container>
                 <div className="py-4 text-black">
                     <h1 className='text-4xl mb-6'>City Council Meetings</h1>

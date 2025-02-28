@@ -26,7 +26,7 @@ export function CouncillorsList() {
     return (
         <div className="max-w-screen-md mx-auto text-left pb-12">
             <div className="mb-8">
-                <h1 className="text-3xl font-bold mb-4">Current Councillors</h1>
+                <h1 className="text-3xl font-bold mb-4">Current</h1>
                 <ul className="list-disc pl-5 space-y-2">
                     {currentCouncillors.map(councillor => (
                         <li key={councillor.id} className="text-lg">
@@ -39,7 +39,7 @@ export function CouncillorsList() {
             </div>
             
             <div>
-                <h2 className="text-2xl font-bold mb-4">Former Councillors</h2>
+                <h2 className="text-2xl font-bold mb-4">Former</h2>
                 <ul className="list-disc pl-5 space-y-2">
                     {formerCouncillors.map(councillor => (
                         <li key={councillor.id} className="text-lg">
